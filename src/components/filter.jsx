@@ -1,7 +1,11 @@
 const Filter = () => {
 	return (
 		<div className='filter'>
-			<h1>Filter</h1>
+			<div className="btns">
+				<button className='active'>All products</button>
+				<button>Completed</button>
+				<button>Big sizes</button>
+			</div>
 		</div>
 	)
 }
