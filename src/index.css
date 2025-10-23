@@ -269,3 +269,18 @@
 	color: #000;
 }
 
+
+/* MEDIA */
+
+@media only screen and (max-width: 1000px) {
+	.wrapper {
+		grid-template-columns: 100%;
+	}
+	.wrapper img {
+		display: none;
+	}
+	/* .card {
+		height: 100vh;
+	} */
+}
+

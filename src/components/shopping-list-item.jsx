@@ -1,38 +1,20 @@
-import React from 'react'
 
-class ShoppingListItem extends React.Component {
-	constructor(props){
-		super(props)
-		this.state = {
-			active: false
-		}
-	}
-
-	onToggleActive = () =>{
-		this.setState(state => ({
-			active: !state.active
-		}))
-	}
-
-
-
-	render(){
-		const {item} = this.props
-		const {active} = this.state
+const ShoppingListItem=(props)=> {
+	
+		const {item, onDeleteItem, onToggleActiveItem} = props
 
 		return (
-				<div key={item.id} className={`list-item ${active && 'active'}`}>
+				<div key={item.id} className={`list-item ${item.active && 'active'}`}>
 						<div className='item-info'>
-							<span>{size}</span>
-							<p>{title}</p>
+							<span>{item.size}</span>
+							<p>{item.title}</p>
 						</div>
 						<div className="item-actions">
-							<span className='check' onClick={this.onToggleActive}>&#10003;</span>
-							<span className='times'>&times;</span>
+							<span className='check' onClick={onToggleActiveItem}>&#10003;</span>
+							<span className='times' onClick={onDeleteItem}>&times;</span>
 						</div>
 					</div>
 		)
-	}
 }
 
 

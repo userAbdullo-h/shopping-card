@@ -1,47 +1,75 @@
+import React from 'react'
+import { arr } from '../constants'
 import Filter from './filter'
 import Information from './information'
 import ShoppingAddForm from './shopping-add-form'
 import ShoppingList from './shopping-list'
 
-function App() {
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      data: arr,
+      maxId: 4
+    }
+  }
 
-  const data = [
-    {
-      id:1,
-      size: 10,
-      title: 'Buy banana',
-      active: false,
-    },
-    {
-      id:2,
-      size: 5,
-      title: 'Buy orange',
-      active: true,
-    },
-    {
-      id:3,
-      size: 12,
-      title: 'Buy apple',
-      active: false,
-    },
-  ]
+  onDelete = (id) => {
+    const newArr = this.state.data.filter(item => item.id !== id)
+    this.setState({
+      data: newArr
+    })
+  }
+  
+  onToggleActive = (id) => {
+      console.log(`Item active: ${id}`);
+      const newArr = this.state.data.map(item => {
+        if(item.id === id) {
+          return {...item, active: !item.active}
+        }
+        return item
+      }) 
 
-	return (
-		<div className='app'>
-			<div className='wrapper'>
-				<div className='card'>
-					<Information />
+      this.setState({
+        data: newArr
+      })
+  }
 
-					<ShoppingAddForm />
+  onAdd = (item) => {
+    const {title, number} = item
+    this.setState(state => ({maxId: this.state.maxId++}))
+    const newData = {title,number, active:false, id: newId}
+    console.log(newData);
+    
+  }
 
-					<ShoppingList  data={data}/>
 
-					<Filter />
-				</div>
-				<img src='/my-logo.png' />
-			</div>
-		</div>
-	)
+  render(){
+    const {data} = this.state
+
+    return (
+      <div className='app'>
+        <div className='wrapper'>
+          <div className='card'>
+            <Information />
+
+            <ShoppingAddForm 
+              onAdd={this.onAdd}
+            />
+
+            <ShoppingList  
+              data={data}
+              onDelete={this.onDelete}  
+              onToggleActive={this.onToggleActive}
+            />
+
+            <Filter />
+          </div>
+          <img src='/my-logo.png' />
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App
