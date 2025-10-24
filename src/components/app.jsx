@@ -1,4 +1,5 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { arr } from '../constants'
 import Filter from './filter'
 import Information from './information'
@@ -9,8 +10,7 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      data: arr,
-      maxId: 4
+      data: arr
     }
   }
 
@@ -37,10 +37,11 @@ class App extends React.Component {
 
   onAdd = (item) => {
     const {title, number} = item
-    this.setState(state => ({maxId: this.state.maxId++}))
-    const newData = {title,number, active:false, id: newId}
-    console.log(newData);
-    
+    const newData = {title,size: number, active:false, id: uuidv4()}
+    const newArr = [...this.state.data, newData]
+    this.setState({
+      data: newArr
+    })
   }
 
 
