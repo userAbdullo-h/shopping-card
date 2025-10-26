@@ -24,7 +24,12 @@ class ShoppingAddForm extends React.Component {
 			number: this.state.number
 		}
 
-		this.props.onAdd(data)
+		if(!data.number.length || !data.title.length){
+			alert('All fields should be completed')
+		}else{
+			this.props.onAdd(data)
+		}
+
 	}
 
 	render(){
